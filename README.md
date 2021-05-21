@@ -1,14 +1,13 @@
 # HW_8
 
 
-
 [Barcelona data sets](https://www.kaggle.com/xvivancos/barcelona-data-sets)
 
 # 문제를 해결하기 전에 해야할 것
 
 자신의 파일 사용 권한 문제 자신만 사용으로 변경
 
-```c
+```text
 0. Make your home(~) directory to be private
 	- Use 'chmod'
 		- (ex) chmod 770 /home/ID/
@@ -17,7 +16,7 @@
 
 # 내가 사용할 데이터
 
-```c
+```text
 (3) Dataset URL: https://www.kaggle.com/xvivancos/barcelona-data-sets
 		Files: [accidents_2017.csv]
 		Label: Victims  # regression
@@ -25,7 +24,7 @@
 
 # 코드 작성 방법
 
-```c
+```text
 2. How to submit?
 	- Make a new directory for this homework
 		- (ex)  /home/ID/homework8/
@@ -47,7 +46,7 @@ PATH :  /home/ID/homework8/code.py
 
 # 코드 마감
 
-```c
+```text
 3. Due:  June 12일(Friday) 23:59
 	- CAUTION: do NOT modify your code file after the due.
 	- If violate this, then you may get 0 score.
@@ -115,16 +114,16 @@ PATH :  /home/ID/homework8/code.py
 - 사용가능 라이브러리 ( "sklearn", "numpy", "pandas", "pickle" )
 - 사용가능 모델
 
-```
-Linear regression
-Ridge regression
-Lasso regression
-Logistic regression
-Support Vector Machine(SVM or SVC)
-Support Vector Regression
-Random Forest
-Gaussian naive bayes
-Multilayer perceptron
+```c
+Linear regression, 
+Ridge regression, 
+Lasso regression, 
+Logistic regression, 
+Support Vector Machine(SVM or SVC), 
+Support Vector Regression, 
+Random Forest, 
+Gaussian naive bayes, 
+Multilayer perceptron, 
 Decision Tree 
 ```
 
@@ -170,6 +169,72 @@ Longitude
 Latitude
 ```
 
+# Feature
+
+- Serious injuries
+- Mild injuries
+
+두개의 Feature 값을 더한 새로운 Feature생성
+
+```python
+X = original_data[["Serious injuries", "Mild injuries"]].sum(axis=1)
+```
+
+# label
+
+```python
+y = original_data["Victims"]
+```
+
+두 사이의 관계 ( 그래프 )
+
+![HW_8%20864dc8af27e447368ffa82ce4f0eba35/Untitled.png](./img/Untitled.png)
+
 # 사용한 모델
 
 - Linear regression
+
+이유 : 1개의 feature와 1개의 label을 가진 모델을 제작 하기 때문에 단순한 선형모델이 필요
+
+# model code
+
+```python
+from sklearn import datasets, linear_model
+from sklearn.model_selection import KFold
+from sklearn.metrics import mean_absolute_error
+
+feature = pd.DataFrame({ "injuries_sum" : original_data[["Serious injuries", "Mild injuries"]].sum(axis=1)})
+label = pd.DataFrame({ "Victims" : original_data["Victims"]})
+
+kf10 = KFold(n_splits=10, shuffle=True)
+regr = linear_model.LinearRegression(fit_intercept=False,
+                                     normalize=False,
+                                     copy_X=True,
+                                     n_jobs=None)
+
+kf10_MAE_list = []
+
+i = 0
+for train_index, test_index in kf10.split(feature):
+    i += 1
+    X_train, X_test = feature.iloc[train_index,:], feature.iloc[test_index,:]
+    Y_train, Y_test = label.iloc[train_index], label.iloc[test_index]
+    
+    regr.fit(X_train, Y_train)
+    
+    Y_pred = regr.predict(X_test)
+    MAE = mean_absolute_error(Y_test, Y_pred)
+    kf10_MAE_list.append(MAE)
+    print("fold {}: MAE = {}".format(i, MAE))
+    
+
+MAE_avg = sum(kf10_MAE_list) / len(kf10_MAE_list)
+print("Total (Average) MAE = {}".format(MAE_avg))
+```
+
+## model 파라미터
+
+- fit_intercept :절편의 계산여부 결정 모델의 feature와 label을 고려했을 때 x,y축 (0,0)을 지나는 모델을 요구 따라서 > False
+- normalize : fit_intercept가 Flase이면 자동으로 False 설정, True이면 회귀 분석 X는 평균을 빼고 l2-표준으로 나누면 회귀 분석 전에 정규화됩니다.
+- copy_x : True로 설정하면 입력한 X가 함수 내에서 사용 할 수 있도록 복사 가능
+- n_jobs=None : 동시 프로세스 또는 동시 프로세스 수를 지정하는 데 사용
