@@ -1,8 +1,6 @@
 # HW_8
 
----
 
----
 
 [Barcelona data sets](https://www.kaggle.com/xvivancos/barcelona-data-sets)
 
@@ -84,32 +82,32 @@ PATH :  /home/ID/homework8/code.py
 
 	- [Criteria 3] (10 points) You need to explain the following items as comments in your code
 	
-		(0) Problem (1 points) : 3~4 lines
-			- Definition of Input, Output
-			- Is it a classificaiton? regression?
-			- How many number of labels?
-			- How the data looks like?
-		(1) Feature (1 points) : 3~4 lines
-			- You can choose or define features by yourself
-			- How did you preprocess the data?
-		(2) Model (2 points) : 3~4 lines
-			- You have to use one of the following list
-			- Why did you choose your models?
-			- Model list: Linear regression, Ridge regression, Lasso regression, Logistic regression, Support Vector Machine(SVM or SVC), Support Vector Regression, Random Forest, Gaussian naive bayes, Multilayer perceptron, Decision Tree 
-		(3) Measure (2 points) : 3~4 lines
-			- Explain the steps of measurement
-			- 10-fold cross validation 
-			- Classification: "weighted F1 score"
-			- Regression: "MAE" (mean absolute error)  
-			- CAUTION: If there are two or more data files, you have to use all of them
-				- (ex) {train.data, test.data} --> {all.data} for 10-fold cross validation
-		(4) Model parameter engineering (4 points)
-			- How did you change parameters to improve performance?
-				- Explain the reason
-				- (ex) I changed 'C' value to 100 because ....
-			- Check the data imbalance, data sparsity, ...
-				- Explain how you handel this
-				- Note that high performance is not always good; for example, you may get 90~95% because of severe data imbalance. How can we handle this problem?
+0. Problem (1 points) : 3~4 lines
+	- Definition of Input, Output
+	- Is it a classificaiton? regression?
+	- How many number of labels?
+	- How the data looks like?
+1. Feature (1 points) : 3~4 lines
+	- You can choose or define features by yourself
+	- How did you preprocess the data?
+2. Model (2 points) : 3~4 lines
+	- You have to use one of the following list
+	- Why did you choose your models?
+	- Model list: Linear regression, Ridge regression, Lasso regression, Logistic regression, Support Vector Machine(SVM or SVC), Support Vector Regression, Random Forest, Gaussian naive bayes, Multilayer perceptron, Decision Tree 
+3. Measure (2 points) : 3~4 lines
+	- Explain the steps of measurement
+	- 10-fold cross validation 
+	- Classification: "weighted F1 score"
+	- Regression: "MAE" (mean absolute error)  
+	- CAUTION: If there are two or more data files, you have to use all of them
+		- (ex) {train.data, test.data} --> {all.data} for 10-fold cross validation
+4. Model parameter engineering (4 points)
+	- How did you change parameters to improve performance?
+		- Explain the reason
+		- (ex) I changed 'C' value to 100 because ....
+	- Check the data imbalance, data sparsity, ...
+		- Explain how you handel this
+		- Note that high performance is not always good; for example, you may get 90~95% because of severe data imbalance. How can we handle this problem?
 
 - Kfold : 10로 해야함
 - code.py로 작성
@@ -117,16 +115,16 @@ PATH :  /home/ID/homework8/code.py
 - 사용가능 라이브러리 ( "sklearn", "numpy", "pandas", "pickle" )
 - 사용가능 모델
 
-```c
-Linear regression, 
-Ridge regression, 
-Lasso regression, 
-Logistic regression, 
-Support Vector Machine(SVM or SVC), 
-Support Vector Regression, 
-Random Forest, 
-Gaussian naive bayes, 
-Multilayer perceptron, 
+```
+Linear regression
+Ridge regression
+Lasso regression
+Logistic regression
+Support Vector Machine(SVM or SVC)
+Support Vector Regression
+Random Forest
+Gaussian naive bayes
+Multilayer perceptron
 Decision Tree 
 ```
 
