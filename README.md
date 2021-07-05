@@ -1,5 +1,6 @@
 # HW_8
 
+머신러닝 과제 입니다.
 
 [Barcelona data sets](https://www.kaggle.com/xvivancos/barcelona-data-sets)
 
